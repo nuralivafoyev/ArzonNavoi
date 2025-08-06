@@ -4,6 +4,7 @@ let featuredProducts = [];
 let currentFilter = 'all';
 let currentLanguage = 'en';
 let isDarkMode = false;
+let cart = [];
 
 // Sample product data - In a real application, this would come from an API
 const sampleProducts = [
@@ -186,7 +187,21 @@ const translations = {
         'email-required': 'Email is required',
         'email-invalid': 'Please enter a valid email address',
         'message-required': 'Message is required',
-        'message-short': 'Message must be at least 10 characters long'
+        'message-short': 'Message must be at least 10 characters long',
+        'nav-cart': 'Cart',
+        'shopping-cart': 'Shopping Cart',
+        'order-summary': 'Order Summary',
+        'subtotal': 'Subtotal',
+        'shipping': 'Shipping',
+        'total': 'Total',
+        'checkout': 'Checkout',
+        'continue-shopping': 'Continue Shopping',
+        'cart-empty': 'Your cart is empty',
+        'cart-empty-subtitle': 'Add some amazing products to get started!',
+        'start-shopping': 'Start Shopping',
+        'remove': 'Remove',
+        'quantity': 'Qty',
+        'checkout-success': 'Thank you for your purchase! Order confirmation sent to your email.'
     },
     uz: {
         'tagline': 'Arzon Sifat',
@@ -231,7 +246,21 @@ const translations = {
         'email-required': 'Elektron pochta talab qilinadi',
         'email-invalid': 'To\'g\'ri elektron pochta manzilini kiriting',
         'message-required': 'Xabar talab qilinadi',
-        'message-short': 'Xabar kamida 10 ta belgidan iborat bo\'lishi kerak'
+        'message-short': 'Xabar kamida 10 ta belgidan iborat bo\'lishi kerak',
+        'nav-cart': 'Savat',
+        'shopping-cart': 'Xaridlar savati',
+        'order-summary': 'Buyurtma xulosasi',
+        'subtotal': 'Jami:',
+        'shipping': 'Yetkazib berish:',
+        'total': 'Umumiy:',
+        'checkout': 'To\'lov',
+        'continue-shopping': 'Xaridni davom ettirish',
+        'cart-empty': 'Savatingiz bo\'sh',
+        'cart-empty-subtitle': 'Boshlash uchun ajoyib mahsulotlar qo\'shing!',
+        'start-shopping': 'Xaridni boshlash',
+        'remove': 'O\'chirish',
+        'quantity': 'Soni',
+        'checkout-success': 'Xaridingiz uchun rahmat! Buyurtma tasdigi elektron pochtangizga yuborildi.'
     },
     ru: {
         'tagline': 'Доступное качество',
@@ -276,7 +305,21 @@ const translations = {
         'email-required': 'Требуется электронная почта',
         'email-invalid': 'Введите корректный адрес электронной почты',
         'message-required': 'Требуется сообщение',
-        'message-short': 'Сообщение должно содержать не менее 10 символов'
+        'message-short': 'Сообщение должно содержать не менее 10 символов',
+        'nav-cart': 'Корзина',
+        'shopping-cart': 'Корзина покупок',
+        'order-summary': 'Итог заказа',
+        'subtotal': 'Промежуточный итог:',
+        'shipping': 'Доставка:',
+        'total': 'Итого:',
+        'checkout': 'Оформить заказ',
+        'continue-shopping': 'Продолжить покупки',
+        'cart-empty': 'Ваша корзина пуста',
+        'cart-empty-subtitle': 'Добавьте потрясающие товары, чтобы начать!',
+        'start-shopping': 'Начать покупки',
+        'remove': 'Удалить',
+        'quantity': 'Кол-во',
+        'checkout-success': 'Спасибо за покупку! Подтверждение заказа отправлено на вашу электронную почту.'
     }
 };
 
@@ -450,7 +493,20 @@ function filterProducts(category) {
 function addToCart(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (product) {
-        // In a real application, this would add to a cart system
+        // Check if product already in cart
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                ...product,
+                quantity: 1
+            });
+        }
+        
+        updateCartBadge();
+        saveCart();
         showNotification(`${product.name} ${getTranslation('cart-success')}`, 'success');
         
         // Animate the button
@@ -558,6 +614,166 @@ function loadUserPreferences() {
             updateTheme();
         }
     }
+    
+    // Load cart
+    loadCart();
+}
+
+// Cart functions
+function updateCartBadge() {
+    const badge = document.getElementById('cart-badge');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    badge.textContent = totalItems;
+    badge.style.display = totalItems > 0 ? 'flex' : 'none';
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function loadCart() {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCartBadge();
+    }
+}
+
+function showCart() {
+    // Hide all other sections
+    document.querySelectorAll('main > section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show cart section
+    const cartSection = document.getElementById('cart-section');
+    cartSection.style.display = 'block';
+    cartSection.classList.remove('hidden');
+    
+    displayCartItems();
+    scrollToSection('cart-section');
+}
+
+function hideCart() {
+    // Hide cart section
+    const cartSection = document.getElementById('cart-section');
+    cartSection.style.display = 'none';
+    cartSection.classList.add('hidden');
+    
+    // Show all other sections
+    document.querySelectorAll('main > section:not(.cart-section)').forEach(section => {
+        section.style.display = 'block';
+    });
+    
+    scrollToSection('home');
+}
+
+function displayCartItems() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyCart = document.getElementById('empty-cart');
+    const cartContent = document.querySelector('.cart-content');
+    
+    if (cart.length === 0) {
+        cartContent.style.display = 'none';
+        emptyCart.classList.remove('hidden');
+        return;
+    }
+    
+    cartContent.style.display = 'grid';
+    emptyCart.classList.add('hidden');
+    
+    cartItemsContainer.innerHTML = '';
+    
+    cart.forEach(item => {
+        const cartItem = createCartItem(item);
+        cartItemsContainer.appendChild(cartItem);
+    });
+    
+    updateCartSummary();
+}
+
+function createCartItem(item) {
+    const cartItem = document.createElement('div');
+    cartItem.className = 'cart-item';
+    
+    cartItem.innerHTML = `
+        <div class="cart-item-image">
+            <span>${item.icon}</span>
+        </div>
+        <div class="cart-item-details">
+            <h4>${item.name}</h4>
+            <p>${item.description}</p>
+            <div class="cart-item-price">${formatPrice(item.currentPrice)} UZS</div>
+        </div>
+        <div class="cart-item-controls">
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                <span class="quantity-display">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})" data-translate="remove">Remove</button>
+        </div>
+    `;
+    
+    return cartItem;
+}
+
+function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        item.quantity += change;
+        
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            updateCartBadge();
+            saveCart();
+            displayCartItems();
+        }
+    }
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartBadge();
+    saveCart();
+    displayCartItems();
+    
+    const product = allProducts.find(p => p.id === productId);
+    if (product) {
+        showNotification(`${product.name} ${getTranslation('remove')}d from cart`, 'info');
+    }
+}
+
+function updateCartSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.currentPrice * item.quantity), 0);
+    const shipping = 0; // Free shipping
+    const total = subtotal + shipping;
+    
+    document.getElementById('cart-subtotal').textContent = `${formatPrice(subtotal)} UZS`;
+    document.getElementById('cart-shipping').textContent = shipping === 0 ? getTranslation('shipping') + ': Free' : `${formatPrice(shipping)} UZS`;
+    document.getElementById('cart-total').textContent = `${formatPrice(total)} UZS`;
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        showNotification('Your cart is empty!', 'error');
+        return;
+    }
+    
+    // Simulate checkout process
+    showNotification(getTranslation('checkout-success'), 'success');
+    
+    // Clear cart
+    cart = [];
+    updateCartBadge();
+    saveCart();
+    displayCartItems();
+    
+    // Redirect to home after checkout
+    setTimeout(() => {
+        hideCart();
+    }, 2000);
 }
 
 // Show notification

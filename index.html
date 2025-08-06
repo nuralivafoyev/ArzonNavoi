@@ -20,6 +20,10 @@
                 <li><a href="#products" class="nav-link" data-translate="nav-products">Products</a></li>
                 <li><a href="#featured" class="nav-link" data-translate="nav-featured">Featured</a></li>
                 <li><a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a></li>
+                <li><a href="#cart" class="nav-link cart-link" onclick="showCart()">
+                    <span data-translate="nav-cart">Cart</span>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </a></li>
             </ul>
             <div class="nav-controls">
                 <!-- Language Selector -->
@@ -137,6 +141,43 @@
                         </div>
                         <button type="submit" class="submit-btn" data-translate="send-message">Send Message</button>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shopping Cart Section -->
+        <section class="cart-section hidden" id="cart-section">
+            <div class="container">
+                <h2 class="section-title" data-translate="shopping-cart">Shopping Cart</h2>
+                <div class="cart-content">
+                    <div class="cart-items" id="cart-items">
+                        <!-- Cart items will be dynamically added here -->
+                    </div>
+                    <div class="cart-summary">
+                        <div class="cart-total">
+                            <h3 data-translate="order-summary">Order Summary</h3>
+                            <div class="total-row">
+                                <span data-translate="subtotal">Subtotal:</span>
+                                <span id="cart-subtotal">0 UZS</span>
+                            </div>
+                            <div class="total-row">
+                                <span data-translate="shipping">Shipping:</span>
+                                <span id="cart-shipping">Free</span>
+                            </div>
+                            <div class="total-row total-final">
+                                <span data-translate="total">Total:</span>
+                                <span id="cart-total">0 UZS</span>
+                            </div>
+                            <button class="checkout-btn" onclick="checkout()" data-translate="checkout">Checkout</button>
+                            <button class="continue-shopping-btn" onclick="hideCart()" data-translate="continue-shopping">Continue Shopping</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="empty-cart hidden" id="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3 data-translate="cart-empty">Your cart is empty</h3>
+                    <p data-translate="cart-empty-subtitle">Add some amazing products to get started!</p>
+                    <button class="continue-shopping-btn" onclick="hideCart()" data-translate="start-shopping">Start Shopping</button>
                 </div>
             </div>
         </section>
