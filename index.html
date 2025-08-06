@@ -13,14 +13,26 @@
         <nav class="nav">
             <div class="nav-brand">
                 <h1 class="logo">ARZONBOZORNAVOI</h1>
-                <p class="tagline">Affordable Quality</p>
+                <p class="tagline" data-translate="tagline">Affordable Quality</p>
             </div>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#products" class="nav-link">Products</a></li>
-                <li><a href="#featured" class="nav-link">Featured</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#home" class="nav-link" data-translate="nav-home">Home</a></li>
+                <li><a href="#products" class="nav-link" data-translate="nav-products">Products</a></li>
+                <li><a href="#featured" class="nav-link" data-translate="nav-featured">Featured</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a></li>
             </ul>
+            <div class="nav-controls">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="uz">UZ</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
                 <span></span>
@@ -35,25 +47,25 @@
         <section class="hero" id="home">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h2 class="hero-title">Quality Products at Unbeatable Prices</h2>
-                    <p class="hero-description">Discover our extensive collection of affordable daily essentials designed to make your life easier without breaking the bank.</p>
-                    <button class="cta-button" onclick="scrollToSection('products')">Shop Now</button>
+                    <h2 class="hero-title" data-translate="hero-title">Quality Products at Unbeatable Prices</h2>
+                    <p class="hero-description" data-translate="hero-description">Discover our extensive collection of affordable daily essentials designed to make your life easier without breaking the bank.</p>
+                    <button class="cta-button" data-translate="shop-now" onclick="scrollToSection('products')">Shop Now</button>
                 </div>
                 <div class="hero-visual">
                     <div class="floating-card">
                         <div class="card-icon">🛍️</div>
-                        <h3>Best Deals</h3>
-                        <p>Up to 70% Off</p>
+                        <h3 data-translate="best-deals">Best Deals</h3>
+                        <p data-translate="up-to-off">Up to 70% Off</p>
                     </div>
                     <div class="floating-card delay-1">
                         <div class="card-icon">🚚</div>
-                        <h3>Fast Delivery</h3>
-                        <p>Same Day</p>
+                        <h3 data-translate="fast-delivery">Fast Delivery</h3>
+                        <p data-translate="same-day">Same Day</p>
                     </div>
                     <div class="floating-card delay-2">
                         <div class="card-icon">💯</div>
-                        <h3>Quality</h3>
-                        <p>Guaranteed</p>
+                        <h3 data-translate="quality">Quality</h3>
+                        <p data-translate="guaranteed">Guaranteed</p>
                     </div>
                 </div>
             </div>
@@ -62,8 +74,8 @@
         <!-- Featured Products Section -->
         <section class="featured" id="featured">
             <div class="container">
-                <h2 class="section-title">Featured Products</h2>
-                <p class="section-subtitle">Hand-picked deals you can't miss</p>
+                <h2 class="section-title" data-translate="featured-products">Featured Products</h2>
+                <p class="section-subtitle" data-translate="featured-subtitle">Hand-picked deals you can't miss</p>
                 <div class="products-grid" id="featured-products">
                     <!-- Featured products will be loaded here by JavaScript -->
                 </div>
@@ -73,13 +85,13 @@
         <!-- All Products Section -->
         <section class="products" id="products">
             <div class="container">
-                <h2 class="section-title">All Products</h2>
+                <h2 class="section-title" data-translate="all-products">All Products</h2>
                 <div class="products-filter">
-                    <button class="filter-btn active" data-category="all">All</button>
-                    <button class="filter-btn" data-category="electronics">Electronics</button>
-                    <button class="filter-btn" data-category="home">Home & Kitchen</button>
-                    <button class="filter-btn" data-category="personal">Personal Care</button>
-                    <button class="filter-btn" data-category="clothing">Clothing</button>
+                    <button class="filter-btn active" data-category="all" data-translate="filter-all">All</button>
+                    <button class="filter-btn" data-category="electronics" data-translate="filter-electronics">Electronics</button>
+                    <button class="filter-btn" data-category="home" data-translate="filter-home">Home & Kitchen</button>
+                    <button class="filter-btn" data-category="personal" data-translate="filter-personal">Personal Care</button>
+                    <button class="filter-btn" data-category="clothing" data-translate="filter-clothing">Clothing</button>
                 </div>
                 <div class="products-grid" id="all-products">
                     <!-- Products will be loaded here by JavaScript -->
@@ -90,40 +102,40 @@
         <!-- Contact Section -->
         <section class="contact" id="contact">
             <div class="container">
-                <h2 class="section-title">Contact Us</h2>
-                <p class="section-subtitle">We're here to help with any questions</p>
+                <h2 class="section-title" data-translate="contact-us">Contact Us</h2>
+                <p class="section-subtitle" data-translate="contact-subtitle">We're here to help with any questions</p>
                 <div class="contact-content">
                     <div class="contact-info">
                         <div class="contact-item">
                             <div class="contact-icon">📧</div>
-                            <h3>Email</h3>
+                            <h3 data-translate="email">Email</h3>
                             <p>info@arzonbozornavoi.com</p>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">📞</div>
-                            <h3>Phone</h3>
+                            <h3 data-translate="phone">Phone</h3>
                             <p>+998 (90) 123-45-67</p>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">📍</div>
-                            <h3>Address</h3>
+                            <h3 data-translate="address">Address</h3>
                             <p>Navoi, Uzbekistan</p>
                         </div>
                     </div>
                     <form class="contact-form" id="contact-form">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            <input type="text" id="name" name="name" data-translate-placeholder="your-name" placeholder="Your Name" required>
                             <span class="error-message" id="name-error"></span>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            <input type="email" id="email" name="email" data-translate-placeholder="your-email" placeholder="Your Email" required>
                             <span class="error-message" id="email-error"></span>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                            <textarea id="message" name="message" data-translate-placeholder="your-message" placeholder="Your Message" rows="5" required></textarea>
                             <span class="error-message" id="message-error"></span>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn" data-translate="send-message">Send Message</button>
                     </form>
                 </div>
             </div>

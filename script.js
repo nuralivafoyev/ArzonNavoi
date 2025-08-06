@@ -2,6 +2,8 @@
 let allProducts = [];
 let featuredProducts = [];
 let currentFilter = 'all';
+let currentLanguage = 'en';
+let isDarkMode = false;
 
 // Sample product data - In a real application, this would come from an API
 const sampleProducts = [
@@ -139,12 +141,152 @@ const sampleProducts = [
     }
 ];
 
+// Translations object
+const translations = {
+    en: {
+        'tagline': 'Affordable Quality',
+        'nav-home': 'Home',
+        'nav-products': 'Products',
+        'nav-featured': 'Featured',
+        'nav-contact': 'Contact',
+        'hero-title': 'Quality Products at Unbeatable Prices',
+        'hero-description': 'Discover our extensive collection of affordable daily essentials designed to make your life easier without breaking the bank.',
+        'shop-now': 'Shop Now',
+        'best-deals': 'Best Deals',
+        'up-to-off': 'Up to 70% Off',
+        'fast-delivery': 'Fast Delivery',
+        'same-day': 'Same Day',
+        'quality': 'Quality',
+        'guaranteed': 'Guaranteed',
+        'featured-products': 'Featured Products',
+        'featured-subtitle': 'Hand-picked deals you can\'t miss',
+        'all-products': 'All Products',
+        'filter-all': 'All',
+        'filter-electronics': 'Electronics',
+        'filter-home': 'Home & Kitchen',
+        'filter-personal': 'Personal Care',
+        'filter-clothing': 'Clothing',
+        'contact-us': 'Contact Us',
+        'contact-subtitle': 'We\'re here to help with any questions',
+        'email': 'Email',
+        'phone': 'Phone',
+        'address': 'Address',
+        'your-name': 'Your Name',
+        'your-email': 'Your Email',
+        'your-message': 'Your Message',
+        'send-message': 'Send Message',
+        'add-to-cart': 'Add to Cart',
+        'view-details': 'View Details',
+        'added': 'Added!',
+        'cart-success': 'added to cart!',
+        'viewing': 'Viewing details for',
+        'message-success': 'Thank you! Your message has been sent successfully.',
+        'sending': 'Sending...',
+        'name-required': 'Name is required',
+        'email-required': 'Email is required',
+        'email-invalid': 'Please enter a valid email address',
+        'message-required': 'Message is required',
+        'message-short': 'Message must be at least 10 characters long'
+    },
+    uz: {
+        'tagline': 'Arzon Sifat',
+        'nav-home': 'Bosh sahifa',
+        'nav-products': 'Mahsulotlar',
+        'nav-featured': 'Tavsiya',
+        'nav-contact': 'Aloqa',
+        'hero-title': 'Ajoyib narxlarda sifatli mahsulotlar',
+        'hero-description': 'Hayotingizni osonlashtiradigan va byudjetingizni buzmaydighan arzon kundalik zarur narsalarning keng assortimentini kashf eting.',
+        'shop-now': 'Xarid qiling',
+        'best-deals': 'Eng yaxshi takliflar',
+        'up-to-off': '70% gacha chegirma',
+        'fast-delivery': 'Tez yetkazib berish',
+        'same-day': 'Bir kunda',
+        'quality': 'Sifat',
+        'guaranteed': 'Kafolatlangan',
+        'featured-products': 'Tavsiya qilinadigan mahsulotlar',
+        'featured-subtitle': 'O\'tkazib yubormaslik kerak bo\'lgan takliflar',
+        'all-products': 'Barcha mahsulotlar',
+        'filter-all': 'Hammasi',
+        'filter-electronics': 'Elektronika',
+        'filter-home': 'Uy va oshxona',
+        'filter-personal': 'Shaxsiy parvarish',
+        'filter-clothing': 'Kiyim',
+        'contact-us': 'Biz bilan bog\'laning',
+        'contact-subtitle': 'Har qanday savol bo\'yicha yordam berishga tayyormiz',
+        'email': 'Elektron pochta',
+        'phone': 'Telefon',
+        'address': 'Manzil',
+        'your-name': 'Ismingiz',
+        'your-email': 'Elektron pochtangiz',
+        'your-message': 'Xabaringiz',
+        'send-message': 'Xabar yuborish',
+        'add-to-cart': 'Savatga qo\'shish',
+        'view-details': 'Batafsil',
+        'added': 'Qo\'shildi!',
+        'cart-success': 'savatga qo\'shildi!',
+        'viewing': 'Batafsil ko\'rish',
+        'message-success': 'Rahmat! Xabaringiz muvaffaqiyatli yuborildi.',
+        'sending': 'Yuborilmoqda...',
+        'name-required': 'Ism talab qilinadi',
+        'email-required': 'Elektron pochta talab qilinadi',
+        'email-invalid': 'To\'g\'ri elektron pochta manzilini kiriting',
+        'message-required': 'Xabar talab qilinadi',
+        'message-short': 'Xabar kamida 10 ta belgidan iborat bo\'lishi kerak'
+    },
+    ru: {
+        'tagline': 'Доступное качество',
+        'nav-home': 'Главная',
+        'nav-products': 'Товары',
+        'nav-featured': 'Рекомендуемые',
+        'nav-contact': 'Контакты',
+        'hero-title': 'Качественные товары по непревзойденным ценам',
+        'hero-description': 'Откройте для себя наш обширный ассортимент доступных предметов первой необходимости, которые сделают вашу жизнь проще, не нарушая бюджет.',
+        'shop-now': 'Купить сейчас',
+        'best-deals': 'Лучшие предложения',
+        'up-to-off': 'Скидки до 70%',
+        'fast-delivery': 'Быстрая доставка',
+        'same-day': 'В тот же день',
+        'quality': 'Качество',
+        'guaranteed': 'Гарантировано',
+        'featured-products': 'Рекомендуемые товары',
+        'featured-subtitle': 'Отобранные предложения, которые нельзя пропустить',
+        'all-products': 'Все товары',
+        'filter-all': 'Все',
+        'filter-electronics': 'Электроника',
+        'filter-home': 'Дом и кухня',
+        'filter-personal': 'Личная гигиена',
+        'filter-clothing': 'Одежда',
+        'contact-us': 'Свяжитесь с нами',
+        'contact-subtitle': 'Мы готовы помочь с любыми вопросами',
+        'email': 'Электронная почта',
+        'phone': 'Телефон',
+        'address': 'Адрес',
+        'your-name': 'Ваше имя',
+        'your-email': 'Ваша электронная почта',
+        'your-message': 'Ваше сообщение',
+        'send-message': 'Отправить сообщение',
+        'add-to-cart': 'В корзину',
+        'view-details': 'Подробнее',
+        'added': 'Добавлено!',
+        'cart-success': 'добавлен в корзину!',
+        'viewing': 'Просмотр деталей для',
+        'message-success': 'Спасибо! Ваше сообщение успешно отправлено.',
+        'sending': 'Отправка...',
+        'name-required': 'Требуется имя',
+        'email-required': 'Требуется электронная почта',
+        'email-invalid': 'Введите корректный адрес электронной почты',
+        'message-required': 'Требуется сообщение',
+        'message-short': 'Сообщение должно содержать не менее 10 символов'
+    }
+};
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
     loadProducts();
     setupScrollAnimations();
+    loadUserPreferences();
 });
 
 // Initialize application
@@ -180,6 +322,22 @@ function setupEventListeners() {
             navMenu.classList.remove('active');
         });
     });
+
+    // Language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            changeLanguage(lang);
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', toggleTheme);
 
     // Filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -268,8 +426,8 @@ function createProductCard(product) {
                 <span class="discount">-${product.discount}%</span>
             </div>
             <div class="product-actions">
-                <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-                <button class="btn btn-secondary" onclick="viewProduct(${product.id})">View Details</button>
+                <button class="btn btn-primary" onclick="addToCart(${product.id})" data-translate="add-to-cart">Add to Cart</button>
+                <button class="btn btn-secondary" onclick="viewProduct(${product.id})" data-translate="view-details">View Details</button>
             </div>
         </div>
     `;
@@ -293,15 +451,15 @@ function addToCart(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (product) {
         // In a real application, this would add to a cart system
-        showNotification(`${product.name} added to cart!`, 'success');
+        showNotification(`${product.name} ${getTranslation('cart-success')}`, 'success');
         
         // Animate the button
         const button = event.target;
-        button.innerHTML = 'Added!';
+        button.innerHTML = getTranslation('added');
         button.style.background = '#28a745';
         
         setTimeout(() => {
-            button.innerHTML = 'Add to Cart';
+            button.innerHTML = getTranslation('add-to-cart');
             button.style.background = '#dc143c';
         }, 2000);
     }
@@ -312,7 +470,93 @@ function viewProduct(productId) {
     const product = allProducts.find(p => p.id === productId);
     if (product) {
         // In a real application, this would navigate to a product detail page
-        showNotification(`Viewing details for ${product.name}`, 'info');
+        showNotification(`${getTranslation('viewing')} ${product.name}`, 'info');
+    }
+}
+
+// Language functions
+function getTranslation(key) {
+    return translations[currentLanguage][key] || translations['en'][key] || key;
+}
+
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    updateLanguage();
+    saveUserPreferences();
+}
+
+function updateLanguage() {
+    // Update all elements with data-translate attribute
+    document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getTranslation(key);
+        element.textContent = translation;
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-translate-placeholder');
+        const translation = getTranslation(key);
+        element.placeholder = translation;
+    });
+
+    // Update dynamically created product cards
+    displayFeaturedProducts();
+    displayAllProducts();
+}
+
+// Theme functions
+function toggleTheme() {
+    isDarkMode = !isDarkMode;
+    updateTheme();
+    saveUserPreferences();
+}
+
+function updateTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+    } else {
+        body.classList.remove('dark-mode');
+        themeIcon.textContent = '🌙';
+    }
+}
+
+// Save user preferences to localStorage
+function saveUserPreferences() {
+    const preferences = {
+        language: currentLanguage,
+        darkMode: isDarkMode
+    };
+    localStorage.setItem('userPreferences', JSON.stringify(preferences));
+}
+
+// Load user preferences from localStorage
+function loadUserPreferences() {
+    const saved = localStorage.getItem('userPreferences');
+    if (saved) {
+        const preferences = JSON.parse(saved);
+        
+        // Set language
+        if (preferences.language) {
+            currentLanguage = preferences.language;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === currentLanguage) {
+                    btn.classList.add('active');
+                }
+            });
+            updateLanguage();
+        }
+        
+        // Set theme
+        if (preferences.darkMode !== undefined) {
+            isDarkMode = preferences.darkMode;
+            updateTheme();
+        }
     }
 }
 
@@ -361,23 +605,23 @@ function handleContactForm(e) {
     let isValid = true;
     
     if (!name) {
-        showFieldError('name-error', 'Name is required');
+        showFieldError('name-error', getTranslation('name-required'));
         isValid = false;
     }
     
     if (!email) {
-        showFieldError('email-error', 'Email is required');
+        showFieldError('email-error', getTranslation('email-required'));
         isValid = false;
     } else if (!isValidEmail(email)) {
-        showFieldError('email-error', 'Please enter a valid email address');
+        showFieldError('email-error', getTranslation('email-invalid'));
         isValid = false;
     }
     
     if (!message) {
-        showFieldError('message-error', 'Message is required');
+        showFieldError('message-error', getTranslation('message-required'));
         isValid = false;
     } else if (message.length < 10) {
-        showFieldError('message-error', 'Message must be at least 10 characters long');
+        showFieldError('message-error', getTranslation('message-short'));
         isValid = false;
     }
     
@@ -386,13 +630,13 @@ function handleContactForm(e) {
         const submitBtn = e.target.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
-        submitBtn.textContent = 'Sending...';
+        submitBtn.textContent = getTranslation('sending');
         submitBtn.disabled = true;
         
         setTimeout(() => {
-            showNotification('Thank you! Your message has been sent successfully.', 'success');
+            showNotification(getTranslation('message-success'), 'success');
             e.target.reset();
-            submitBtn.textContent = originalText;
+            submitBtn.textContent = getTranslation('send-message');
             submitBtn.disabled = false;
         }, 2000);
     }
