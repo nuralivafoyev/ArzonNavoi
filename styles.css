@@ -149,15 +149,15 @@ body.dark-mode .continue-shopping-btn:hover {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(220, 20, 60, 0.95);
+    background: #dc2247ae;
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
 .header.scrolled {
-    background: rgba(220, 20, 60, 0.98);
-    box-shadow: 0 2px 20px rgba(220, 20, 60, 0.3);
+    background: #dc143c82;
+    box-shadow: 0 4px 20px #dc143c88;
 }
 
 .nav {
@@ -167,11 +167,11 @@ body.dark-mode .continue-shopping-btn:hover {
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 2rem;
+    gap: 10px;
 }
 
 .nav-brand .logo {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -179,15 +179,15 @@ body.dark-mode .continue-shopping-btn:hover {
 }
 
 .nav-brand .tagline {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    color: #ffffffe6;
     font-weight: 300;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 10px;
 }
 
 .nav-link {
@@ -329,8 +329,15 @@ body.dark-mode .theme-icon {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 .hero-content {
@@ -342,6 +349,7 @@ body.dark-mode .theme-icon {
     align-items: center;
     position: relative;
     z-index: 2;
+    padding-top: 80px;
 }
 
 .hero-title {
@@ -388,9 +396,9 @@ body.dark-mode .theme-icon {
 
 .floating-card {
     position: absolute;
-    background: rgba(255, 255, 255, 0.15);
+    background: #ffffff26;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid #ffffff4d;
     border-radius: 20px;
     padding: 1.5rem;
     text-align: center;
@@ -401,28 +409,32 @@ body.dark-mode .theme-icon {
 
 .floating-card:nth-child(1) {
     top: 20px;
-    right: 50px;
+    right: 0px;
     width: 140px;
 }
 
 .floating-card:nth-child(2) {
-    bottom: 150px;
+    bottom: 50px;
     left: 20px;
     width: 130px;
     animation-delay: -2s;
 }
 
-.floating-card:nth-child(3) {
-    top: 150px;
-    left: 150px;
-    width: 120px;
-    animation-delay: -4s;
-}
 
 @keyframes floatCard {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-10px) rotate(1deg); }
-    66% { transform: translateY(5px) rotate(-1deg); }
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    33% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+
+    66% {
+        transform: translateY(5px) rotate(-1deg);
+    }
 }
 
 .card-icon {
@@ -1111,6 +1123,7 @@ body.dark-mode .theme-icon {
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -1122,6 +1135,7 @@ body.dark-mode .theme-icon {
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -1133,6 +1147,7 @@ body.dark-mode .theme-icon {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1336,8 +1351,13 @@ body.dark-mode .theme-icon {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Utility Classes */
