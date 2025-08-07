@@ -547,6 +547,11 @@ body.dark-mode .theme-icon {
     box-shadow: 0 4px 15px rgba(220, 20, 60, 0.1);
 }
 
+.contact-item-text {
+    display: flex;
+    flex-direction: column;
+}
+
 .contact-icon {
     font-size: 1.5rem;
     width: 50px;
