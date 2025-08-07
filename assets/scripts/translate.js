@@ -57,7 +57,11 @@ const translations = {
         'start-shopping': 'Start Shopping',
         'remove': 'Remove',
         'quantity': 'Qty',
-        'checkout-success': 'Thank you for your purchase! Order confirmation sent to your email.'
+        'checkout-success': 'Thank you for your purchase! Order confirmation sent to your email.',
+        'quick-links': 'Quick Links',
+        'categories': 'Categories',
+        'footer-description': 'Your trusted partner for affordable quality products',
+        'footer-policy': '© 2025 ARZONBOZORNAVOI. All rights reserved.',
     },
     uz: {
         'tagline': 'Arzon Sifat',
@@ -116,7 +120,11 @@ const translations = {
         'start-shopping': 'Xaridni boshlash',
         'remove': 'O\'chirish',
         'quantity': 'Soni',
-        'checkout-success': 'Xaridingiz uchun rahmat! Buyurtma tasdigi elektron pochtangizga yuborildi.'
+        'checkout-success': 'Xaridingiz uchun rahmat! Buyurtma tasdigi elektron pochtangizga yuborildi.',
+        'quick-links': 'Tez havolalar',
+        'categories': 'Kategoriyalar',
+        'footer-description': 'Arzon sifatli mahsulotlar uchun ishonchli hamkoringiz',
+        'footer-policy': '© 2025 ARZONBOZORNAVOI. Barcha huquqlar himoyalangan.',
     },
     ru: {
         'tagline': 'Доступное качество',
@@ -175,6 +183,10 @@ const translations = {
         'start-shopping': 'Начать покупки',
         'remove': 'Удалить',
         'quantity': 'Кол-во',
-        'checkout-success': 'Спасибо за покупку! Подтверждение заказа отправлено на вашу электронную почту.'
+        'checkout-success': 'Спасибо за покупку! Подтверждение заказа отправлено на вашу электронную почту.',
+        'quick-links': 'Быстрые ссылки',
+        'categories': 'Категории',
+        'footer-description': 'Ваш надежный партнер по доступным качественным продуктам',
+        'footer-policy': '© 2025 ARZONBOZORNAVOI. Все права защищены.',
     }
 };
