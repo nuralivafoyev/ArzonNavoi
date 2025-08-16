@@ -116,3 +116,6 @@ body.dark-mode .continue-shopping-btn {
 body.dark-mode .continue-shopping-btn:hover {
     background: linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 100%);
 }
+body.dark-mode .product-name{
+    color: #dc143c;
+}
